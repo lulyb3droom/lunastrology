@@ -15,8 +15,8 @@ Cada tarefa tem critério de "pronto" (✔).
 
 ## Fase 1 — Núcleo astronômico (`lib/astro/`, sem interface)
 - **T1.1** Tipos, `config.ts` (orbes, sistemas, regências) e interface `EphemerisProvider`. ✔ compila.
-- **T1.2** `scripts/gerar-gabarito.py` (Swiss Ephemeris, só dev) + `mapas-referencia.json` com ≥12 mapas:
-  BR com verão: São Paulo jan/1986, Rio dez/1990, Porto Alegre nov/2008, Goiânia out/1993 · BR sem verão: Recife 1995, Manaus 1982, Brasília jul/2019 · Mundo: Nova York 1969, Sydney 1977, Londres 2001, Tóquio 1955 · Extremos: Reykjavik (lat. alta) e um mapa sem hora. ✔ arquivo gerado e versionado.
+- **T1.2** ✅ `scripts/gerar-gabarito.mjs` (Swiss Ephemeris via `sweph`, só dev) + `mapas-referencia.json` com 14 mapas:
+  BR com verão: São Paulo jan/1986, Rio dez/1990, Porto Alegre nov/2008, Goiânia out/1993 · BR sem verão: Recife 1995, Manaus 1982, Brasília jul/2019 · Mundo: Nova York 1969, Sydney 1977, Londres 2001, Tóquio 1955 · Extremos: Reykjavik (lat. 64°, Placidus funciona) e Tromsø (lat. 69,6°, Placidus falha) · um mapa sem hora. ✔ arquivo gerado e versionado.
 - **T1.3** Conversão local→UTC com testes BR. ✔ todos os casos batem com o esperado.
 - **T1.4** Posições aparentes de Sol a Plutão + retrogradação. ✔ ≤ 1' do gabarito nos 12 mapas.
 - **T1.5** Nodo médio, Lilith média. ✔ ≤ 1' do gabarito.

@@ -1,0 +1,16 @@
+[
+  {"id":"sp-1986-verao","label":"São Paulo, jan/1986 (horário de verão)","date":"1986-01-15","time":"14:30","tz":"America/Sao_Paulo","lat":-23.5505,"lon":-46.6333,"grupo":"br-verao"},
+  {"id":"rj-1990-verao","label":"Rio de Janeiro, dez/1990 (horário de verão)","date":"1990-12-10","time":"09:15","tz":"America/Sao_Paulo","lat":-22.9068,"lon":-43.1729,"grupo":"br-verao"},
+  {"id":"poa-2008-verao","label":"Porto Alegre, nov/2008 (horário de verão)","date":"2008-11-20","time":"18:45","tz":"America/Sao_Paulo","lat":-30.0346,"lon":-51.2177,"grupo":"br-verao"},
+  {"id":"gyn-1993-verao","label":"Goiânia, out/1993 (horário de verão)","date":"1993-10-25","time":"08:05","tz":"America/Sao_Paulo","lat":-16.6869,"lon":-49.2648,"grupo":"br-verao"},
+  {"id":"rec-1995","label":"Recife, jun/1995 (sem verão)","date":"1995-06-05","time":"22:10","tz":"America/Recife","lat":-8.0476,"lon":-34.877,"grupo":"br-sem-verao"},
+  {"id":"mao-1982","label":"Manaus, ago/1982 (sem verão)","date":"1982-08-14","time":"03:40","tz":"America/Manaus","lat":-3.119,"lon":-60.0217,"grupo":"br-sem-verao"},
+  {"id":"bsb-2019","label":"Brasília, jul/2019 (sem verão)","date":"2019-07-03","time":"11:20","tz":"America/Sao_Paulo","lat":-15.7939,"lon":-47.8828,"grupo":"br-sem-verao"},
+  {"id":"nyc-1969","label":"Nova York, jul/1969","date":"1969-07-20","time":"16:17","tz":"America/New_York","lat":40.7128,"lon":-74.006,"grupo":"mundo"},
+  {"id":"syd-1977","label":"Sydney, dez/1977 (hemisfério sul)","date":"1977-12-01","time":"07:30","tz":"Australia/Sydney","lat":-33.8688,"lon":151.2093,"grupo":"mundo"},
+  {"id":"lon-2001","label":"Londres, jun/2001","date":"2001-06-21","time":"12:00","tz":"Europe/London","lat":51.5074,"lon":-0.1278,"grupo":"mundo"},
+  {"id":"tyo-1955","label":"Tóquio, abr/1955","date":"1955-04-10","time":"23:50","tz":"Asia/Tokyo","lat":35.6762,"lon":139.6503,"grupo":"mundo"},
+  {"id":"rkv-1998","label":"Reykjavik, dez/1998 (latitude alta, Placidus ainda funciona)","date":"1998-12-21","time":"13:00","tz":"Atlantic/Reykjavik","lat":64.1466,"lon":-21.9426,"grupo":"extremo"},
+  {"id":"tos-2005","label":"Tromsø, jun/2005 (acima do círculo polar: Placidus falha)","date":"2005-06-25","time":"12:00","tz":"Europe/Oslo","lat":69.6492,"lon":18.9553,"grupo":"extremo"},
+  {"id":"sp-1992-sem-hora","label":"São Paulo, fev/1992 (hora desconhecida)","date":"1992-02-29","time":"12:00","tz":"America/Sao_Paulo","lat":-23.5505,"lon":-46.6333,"timeUnknown":true,"grupo":"sem-hora"}
+]

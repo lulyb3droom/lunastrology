@@ -94,7 +94,8 @@ Pipeline (cada etapa é função pura e testada):
 Saída: objeto `ChartResult` tipado + `calcVersion` (salvo no banco para recalcular se o algoritmo mudar). Zodíaco tropical, com parâmetro `zodiac` reservado para o sideral no futuro.
 
 ### Validação
-- `scripts/gerar-gabarito.py` usa `pyswisseph` (Python 3.14 instalado; instalar só como ferramenta de dev, AGPL não toca o site) para gerar `tests/fixtures/mapas-referencia.json` com ≥12 mapas fictícios (lista em `tasks.md`).
+- `scripts/gerar-gabarito.mjs` usa o pacote `sweph` (Swiss Ephemeris para Node; o `pyswisseph` não tem versão pronta para Python 3.14 nem compilador na máquina) instalado **fora do projeto**, só como ferramenta de dev (AGPL não toca o site), e gera `tests/fixtures/mapas-referencia.json` com 14 mapas fictícios (lista em `tasks.md`). A conversão de fuso do gabarito vem de `scripts/utc-gabarito.py` (Python `zoneinfo`), um caminho independente do que o site usa.
+- **Lilith média:** o Swiss soma ao apogeu médio de Meeus uma correção de ≈ 0,1157° × sen(2·(apogeu − nodo)). Sem ela, a diferença chegava a 7'. Com ela, fica abaixo de 0,35' entre 1800 e 2200.
 - Testes exigem planetas ≤ 1' e ASC/MC ≤ 5' (Placidus). Você confere 2–3 mapas no Astro.com como validação independente.
 - Testes de fuso: casos BR com/sem verão (SP 1986, RJ 1990, POA 2008, GYN 1993, REC 1995, MAO 1982, BSB 2019).
 
