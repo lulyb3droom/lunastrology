@@ -10,3 +10,6 @@ next-env.d.ts
 tmp-tarot-staging/
 .DS_Store
 coverage/
+
+.vercel
+.env*
