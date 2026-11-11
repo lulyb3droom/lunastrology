@@ -28,11 +28,11 @@ Cada tarefa tem critério de "pronto" (✔).
 - **T1.11** *(você)* Conferir 2–3 mapas no Astro.com. ✔ aprovado por você.
 
 ## Fase 2 — Mapa na interface
-- **T2.1** Geocodificação + cache + autocomplete + fuso. ✔ "Goiânia, GO" retorna coordenadas e fuso.
-- **T2.2** Formulário de nascimento (com "não sei a hora", escolha do sistema de casas). ✔ validações em português.
-- **T2.3** `ChartWheel` em SVG (signos, casas, glifos, aspectos com legenda além da cor, seleção em `neon-nebula`). ✔ correta em 375px e desktop.
-- **T2.4** Tabelas de planetas, casas e aspectos; cartões de Big Three e resumos. ✔
-- **T2.5** Salvar mapa no banco (visitante: UUID; limpeza em 30 dias). ✔ recarregar a URL mostra o mesmo mapa.
+- **T2.1** ✅ Geocodificação + cache + autocomplete + fuso. ✔ "Goiânia, GO" retorna coordenadas e fuso.
+- **T2.2** ✅ Formulário de nascimento (com "não sei a hora", escolha do sistema de casas). ✔ validações em português.
+- **T2.3** ✅ `ChartWheel` em SVG (signos, casas, glifos, aspectos com legenda além da cor, seleção em `neon-nebula`). ✔ correta em 375px e desktop.
+- **T2.4** ✅ Tabelas de planetas, casas e aspectos; cartões de Big Three e resumos. ✔
+- **T2.5** ✅ Salvar mapa no banco (visitante: UUID; limpeza em 30 dias). ✔ recarregar a URL mostra o mesmo mapa.
 
 ## Fase 3 — Tarot (sem IA ainda)
 - **T3.1** `data/tarot/cartas.ts`: 78 cartas com significado direito/invertido em PT-BR. ✔ 78 itens validados por teste.
@@ -45,7 +45,7 @@ Cada tarefa tem critério de "pronto" (✔).
 - **T4.1** Cliente OpenRouter (streaming, cabeçalhos, `max_tokens`, timeout, reserva). ✔ simulado em teste; erro de crédito/modelo vira mensagem amigável.
 - **T4.2** Prompts versionados (`tarologo.v1.md`, `mapa.v1.md`) com regras da constituição. ✔ revisados por você.
 - **T4.3** Pré-filtro de risco de vida + resposta com CVV 188. ✔ testes com frases de exemplo.
-- **T4.4** Rate limit em Postgres + registro em `ai_usage`. ✔ 4ª tiragem do visitante no dia é bloqueada.
+- **T4.4** Rate limit em Postgres + registro em `ai_usage`. Aplicar também a `POST /api/mapa` e `GET /api/geocode` (hoje sem limite por IP; o geocode só tem cache e pausa de 1 s por instância). ✔ 4ª tiragem do visitante no dia é bloqueada.
 - **T4.5** Interpretação do tarot em streaming na tela. ✔ começa em ~3 s.
 - **T4.6** Interpretação do mapa (uma vez, salva). ✔ segunda visita não chama a IA.
 - **T4.7** Comparar `nemotron-3-ultra-550b-a55b:free` (principal) x `gemma-4-31b-it:free` (reserva) em 5 casos, medindo tempo até o primeiro texto e respeito às regras de segurança, e confirmar a escolha. ✔ decisão sua.
@@ -65,6 +65,7 @@ Cada tarefa tem critério de "pronto" (✔).
 - **T6.5** Privacidade, Termos, aviso de entretenimento. ✔
 
 ## Fase 7 — Fechamento
+- **T7.0** Tarefa agendada (Vercel Cron) que apaga mapas de visitantes sem login com mais de 30 dias. ✔
 - **T7.1** Teste ponta a ponta (calcular mapa → ver resultado; e uma tiragem). ✔
 - **T7.2** Revisão de acessibilidade (teclado, contraste, alt) e desempenho no celular. ✔
 - **T7.3** Auditoria de segredos (nenhuma chave no código/cliente/commits). ✔

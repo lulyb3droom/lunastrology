@@ -1,5 +1,5 @@
 import { norm360 } from "./math";
-import type { Element, Modality, PlanetId, SignInfo } from "./types";
+import type { AspectType, BodyId, Element, Modality, PlanetId, SignInfo } from "./types";
 
 export const SIGNS: readonly SignInfo[] = [
   { id: "aries", name: "Áries", symbol: "♈", element: "fogo", modality: "cardinal", rulerTraditional: "mars", rulerModern: "mars" },
@@ -51,4 +51,39 @@ export function locate(longitude: number) {
 export function formatPosition(longitude: number): string {
   const p = locate(longitude);
   return `${p.degree}°${String(p.minute).padStart(2, "0")}' de ${SIGNS[p.signIndex]!.name}`;
+}
+
+export const BODY_NAMES: Record<BodyId, string> = {
+  ...PLANET_NAMES,
+  northNode: "Nodo Norte",
+  southNode: "Nodo Sul",
+  lilith: "Lilith",
+  partOfFortune: "Parte da Fortuna",
+  asc: "Ascendente",
+  mc: "Meio do Céu",
+};
+
+export const ASPECT_NAMES: Record<AspectType, string> = {
+  conjunction: "Conjunção",
+  opposition: "Oposição",
+  trine: "Trígono",
+  square: "Quadratura",
+  sextile: "Sextil",
+  quincunx: "Quincúncio",
+};
+
+/** Ex.: "14°23'" (grau e minuto dentro do signo). */
+export function formatDegMin(p: { degree: number; minute: number }): string {
+  return `${p.degree}°${String(p.minute).padStart(2, "0")}'`;
+}
+
+/** Orbe em graus e minutos, arredondando o minuto: 2,0833 → "2°05'". */
+export function formatOrb(orb: number): string {
+  let d = Math.floor(orb);
+  let m = Math.round((orb - d) * 60);
+  if (m === 60) {
+    d += 1;
+    m = 0;
+  }
+  return `${d}°${String(m).padStart(2, "0")}'`;
 }

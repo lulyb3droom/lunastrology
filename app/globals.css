@@ -11,6 +11,8 @@
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-cormorant), Georgia, serif;
+  /* Glifos astrológicos (planetas, signos): fontes Noto garantem o mesmo desenho em todos os aparelhos */
+  --font-astro: var(--font-symbols), var(--font-symbols2), "Segoe UI Symbol", "Apple Symbols", sans-serif;
 }
 
 :root {

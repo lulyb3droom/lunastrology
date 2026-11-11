@@ -42,9 +42,14 @@ export const birthCharts = pgTable(
     interpretation: text("interpretation"),
     interpretationModel: text("interpretation_model"),
     shareToken: text("share_token").unique(), // nulo = não compartilhável (padrão)
+    // Visitante sem login: hash (SHA-256) do identificador guardado no cookie do navegador.
+    visitorHash: text("visitor_hash"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
-  (t) => [index("birth_charts_user_idx").on(t.userId)],
+  (t) => [
+    index("birth_charts_user_idx").on(t.userId),
+    index("birth_charts_visitor_idx").on(t.visitorHash),
+  ],
 );
 
 export const tarotReadings = pgTable(
@@ -71,6 +76,8 @@ export const geocodeCache = pgTable("geocode_cache", {
   lon: doublePrecision("lon").notNull(),
   tz: text("tz").notNull(),
   displayName: text("display_name").notNull(),
+  // Lista completa de resultados da busca (autocomplete). lat/lon/tz/displayName acima = 1º resultado.
+  results: jsonb("results"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 

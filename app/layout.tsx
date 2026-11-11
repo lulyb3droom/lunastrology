@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Cormorant_Garamond, Inter, Noto_Sans_Symbols, Noto_Sans_Symbols_2 } from "next/font/google";
 import "./globals.css";
 import { StarField } from "@/components/StarField";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -13,6 +13,9 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
+const symbols = Noto_Sans_Symbols({ subsets: ["symbols"], variable: "--font-symbols", display: "swap" });
+const symbols2 = Noto_Sans_Symbols_2({ subsets: ["symbols"], weight: "400", variable: "--font-symbols2", display: "swap" });
+
 export const metadata: Metadata = {
   title: { default: "Lunastrology — Mapa astral e tarot", template: "%s · Lunastrology" },
   description:
@@ -23,7 +26,7 @@ export const viewport: Viewport = { themeColor: "#09070F", colorScheme: "dark" }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${cormorant.variable}`}>
+    <html lang="pt-BR" className={`${inter.variable} ${cormorant.variable} ${symbols.variable} ${symbols2.variable}`}>
       <body>
         <StarField />
         <SiteHeader />
