@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+/* Paleta "Mística & Deep Tech" - use SEMPRE os tokens, nunca hex solto nos componentes. */
+@theme {
+  --color-bg-deep: #09070f;
+  --color-bg-cosmic: #1c1033;
+  --color-violet-astral: #6b3fa0;
+  --color-white-cosmic: #ffffff;
+  --color-text-main: #f1eef8;
+  --color-neon-nebula: #a855f7;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cormorant), Georgia, serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-bg-deep);
+}
+
+body {
+  min-height: 100vh;
+  background: var(--color-bg-deep);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+}
+
+/* Sem tema claro no MVP: a identidade do site é o céu noturno. */
+
+/* ---------- Vidro fosco (glassmorphism) ---------- */
+.glass,
+.glass-strong,
+.glass-subtle {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--color-white-cosmic) 12%, transparent);
+  border-radius: 1rem;
+  color: var(--color-text-main);
+  box-shadow: 0 8px 32px color-mix(in srgb, var(--color-violet-astral) 22%, transparent);
+  background-image: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-white-cosmic) 9%, transparent) 0%,
+    transparent 35%
+  );
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.glass {
+  background-color: color-mix(in srgb, var(--color-bg-cosmic) 50%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+}
+.glass-strong {
+  background-color: color-mix(in srgb, var(--color-bg-cosmic) 62%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+}
+.glass-subtle {
+  background-color: color-mix(in srgb, var(--color-bg-cosmic) 40%, transparent);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+  backdrop-filter: blur(12px) saturate(130%);
+}
+.glass:hover,
+.glass:focus-within,
+.glass-strong:hover,
+.glass-strong:focus-within,
+.glass-subtle:hover,
+.glass-subtle:focus-within {
+  border-color: color-mix(in srgb, var(--color-neon-nebula) 55%, transparent);
+  box-shadow: 0 8px 32px color-mix(in srgb, var(--color-neon-nebula) 28%, transparent);
+}
+
+/* Navegador sem backdrop-filter: fundo mais opaco (~90%). */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass,
+  .glass-strong,
+  .glass-subtle {
+    background-color: color-mix(in srgb, var(--color-bg-cosmic) 90%, transparent);
+  }
+}
+
+/* Usuário pediu menos transparência: vidro vira sólido. */
+@media (prefers-reduced-transparency: reduce) {
+  .glass,
+  .glass-strong,
+  .glass-subtle {
+    background-color: var(--color-bg-cosmic);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* ---------- Fundo: estrelas + nebulosas ---------- */
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--color-bg-deep);
+  pointer-events: none;
+}
+.sky-nebula {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.28;
+  animation: nebula-drift 90s ease-in-out infinite alternate;
+}
+.sky-nebula-1 {
+  width: 55vmax;
+  height: 55vmax;
+  top: -15vmax;
+  left: -15vmax;
+  background: var(--color-violet-astral);
+}
+.sky-nebula-2 {
+  width: 45vmax;
+  height: 45vmax;
+  bottom: -12vmax;
+  right: -10vmax;
+  background: var(--color-neon-nebula);
+  opacity: 0.18;
+  animation-duration: 120s;
+}
+.sky-nebula-3 {
+  width: 35vmax;
+  height: 35vmax;
+  top: 35%;
+  left: 45%;
+  background: var(--color-bg-cosmic);
+  opacity: 0.7;
+  animation-duration: 150s;
+}
+@keyframes nebula-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(4vmax, 3vmax, 0) scale(1.08);
+  }
+}
+.sky-stars {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--color-white-cosmic);
+}
+.sky-stars-twinkle {
+  animation: twinkle 6s ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sky-nebula,
+  .sky-stars-twinkle {
+    animation: none;
+  }
+}
+
+/* Foco visível para navegação por teclado */
+:focus-visible {
+  outline: 2px solid var(--color-neon-nebula);
+  outline-offset: 3px;
+}
