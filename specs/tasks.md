@@ -42,12 +42,12 @@ Cada tarefa tem critério de "pronto" (✔).
 - **T3.5** ✅ Carta do dia na Home. ✔
 
 ## Fase 4 — IA (OpenRouter)
-- **T4.1** Cliente OpenRouter (streaming, cabeçalhos, `max_tokens`, timeout, reserva). ✔ simulado em teste; erro de crédito/modelo vira mensagem amigável.
-- **T4.2** Prompts versionados (`tarologo.v1.md`, `mapa.v1.md`) com regras da constituição. ✔ revisados por você.
-- **T4.3** Pré-filtro de risco de vida + resposta com CVV 188. ✔ testes com frases de exemplo.
-- **T4.4** Rate limit em Postgres + registro em `ai_usage`. Aplicar também a `POST /api/mapa` e `GET /api/geocode` (hoje sem limite por IP; o geocode só tem cache e pausa de 1 s por instância). ✔ 4ª tiragem do visitante no dia é bloqueada.
-- **T4.5** Interpretação do tarot em streaming na tela. ✔ começa em ~3 s.
-- **T4.6** Interpretação do mapa (uma vez, salva). ✔ segunda visita não chama a IA.
+- **T4.1** ✅ Cliente OpenRouter (streaming, cabeçalhos, `max_tokens`, timeout, reserva). ✔ simulado em teste; erro de crédito/modelo vira mensagem amigável.
+- **T4.2** ✅ (código; falta a sua revisão dos textos) Prompts versionados (`tarologo.v1.md`, `mapa.v1.md`) com regras da constituição. ✔ revisados por você.
+- **T4.3** ✅ Pré-filtro de risco de vida + resposta com CVV 188. ✔ testes com frases de exemplo.
+- **T4.4** ✅ Rate limit em Postgres + registro em `ai_usage`. Aplicar também a `POST /api/mapa` e `GET /api/geocode` (hoje sem limite por IP; o geocode só tem cache e pausa de 1 s por instância). ✔ 4ª tiragem do visitante no dia é bloqueada.
+- **T4.5** ✅ Interpretação do tarot em streaming na tela. ✔ começa em ~3 s.
+- **T4.6** ✅ Interpretação do mapa (uma vez, salva). ✔ segunda visita não chama a IA.
 - **T4.7** Comparar `nemotron-3-ultra-550b-a55b:free` (principal) x `gemma-4-31b-it:free` (reserva) em 5 casos, medindo tempo até o primeiro texto e respeito às regras de segurança, e confirmar a escolha. ✔ decisão sua.
 
 ## Fase 5 — Contas e LGPD

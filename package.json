@@ -10,7 +10,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "node --env-file=.env.local node_modules/drizzle-kit/bin.cjs migrate"
+    "db:migrate": "node --env-file=.env.local node_modules/drizzle-kit/bin.cjs migrate",
+    "comparar-modelos": "node --env-file=.env.local node_modules/vitest/vitest.mjs run --config vitest.manual.config.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "1.2.0",

@@ -13,6 +13,26 @@ export interface StoredReading {
   createdAt: Date;
 }
 
+export interface SavedInterpretation {
+  text: string;
+  model: string;
+  usage: { tokensIn: number | null; tokensOut: number | null; costUsd: number | null } | null;
+}
+
+/** Guarda a interpretação gerada (uma vez só: depois é reaproveitada, sem gastar IA). */
+export async function saveReadingInterpretation(id: string, r: SavedInterpretation): Promise<void> {
+  await getDb()
+    .update(schema.tarotReadings)
+    .set({
+      interpretation: r.text,
+      model: r.model,
+      tokensIn: r.usage?.tokensIn ?? null,
+      tokensOut: r.usage?.tokensOut ?? null,
+      costUsd: r.usage?.costUsd != null ? String(r.usage.costUsd) : null,
+    })
+    .where(eq(schema.tarotReadings.id, id));
+}
+
 /** Sorteia (no servidor) e grava uma tiragem. Devolve o id. */
 export async function createReading(spread: SpreadId, question: string | null, visitorId: string): Promise<string> {
   const cards = drawSpread(spread);

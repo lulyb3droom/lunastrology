@@ -13,3 +13,5 @@ coverage/
 
 .vercel
 .env*
+
+tmp-comparacao-modelos.md

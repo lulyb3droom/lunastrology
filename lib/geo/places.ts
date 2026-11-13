@@ -107,7 +107,7 @@ async function fetchNominatim(q: string): Promise<Place[]> {
 }
 
 /** Busca cidades pelo nome, usando o cache do banco antes de chamar o Nominatim. */
-export async function searchPlaces(rawQuery: string): Promise<Place[]> {
+export async function searchPlaces(rawQuery: string, guard?: () => Promise<void>): Promise<Place[]> {
   const key = normalizeQuery(rawQuery);
   if (key.length < 3) return [];
 
@@ -119,6 +119,8 @@ export async function searchPlaces(rawQuery: string): Promise<Place[]> {
     .limit(1);
   if (cached[0]?.results) return cached[0].results as Place[];
 
+  // Só chega aqui quando NÃO está no cache: é a chamada que conta para o limite diário.
+  await guard?.();
   const places = await fetchNominatim(key);
   if (places.length > 0) {
     const first = places[0]!;

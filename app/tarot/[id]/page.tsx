@@ -55,9 +55,20 @@ export default async function TiragemPage({ params }: { params: Promise<{ id: st
       <header>
         <h1 className="font-display text-4xl sm:text-5xl">{spread.name}</h1>
         <p className="mt-2 text-text-main/90">{spread.description}</p>
+        {reading.question && (
+          <p className="mt-3 rounded-lg border border-white-cosmic/15 bg-bg-deep/50 p-3 text-sm">
+            <span className="font-semibold">Sua pergunta:</span> {reading.question}
+          </p>
+        )}
       </header>
 
-      <ReadingBoard spreadId={spread.id} spreadName={spread.name} cards={cards} />
+      <ReadingBoard
+        spreadId={spread.id}
+        spreadName={spread.name}
+        cards={cards}
+        interpretEndpoint={`/api/tarot/${reading.id}/interpretar`}
+        initialInterpretation={reading.interpretation}
+      />
 
       <p className="text-xs text-text-main/70">
         Imagens: baralho Rider-Waite-Smith (1909, ilustrações de Pamela Colman Smith), em domínio público, via Wikimedia

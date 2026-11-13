@@ -1,5 +1,8 @@
 import { cookies } from "next/headers";
+import { CRISIS_MESSAGE, detectCrisis } from "@/lib/ai/safety";
+import { sanitizeQuestion } from "@/lib/ai/messages";
 import { getOrCreateVisitorId } from "@/lib/charts/visitor";
+import { BUSY_MESSAGE, LIMITS, clientKey, hit } from "@/lib/rate-limit";
 import { DAILY_COOKIE, getTodaysReading, todayInBrazil } from "@/lib/tarot/daily";
 import { createReading } from "@/lib/tarot/repo";
 import { isSpreadId } from "@/lib/tarot/spreads";
@@ -8,14 +11,22 @@ export const dynamic = "force-dynamic";
 
 // Faz uma tiragem: o SORTEIO acontece aqui, no servidor, com aleatoriedade criptográfica.
 export async function POST(request: Request) {
-  let body: { spread?: unknown };
+  let body: { spread?: unknown; question?: unknown };
   try {
-    body = (await request.json()) as { spread?: unknown };
+    body = (await request.json()) as { spread?: unknown; question?: unknown };
   } catch {
     return Response.json({ error: "Requisição inválida." }, { status: 400 });
   }
   if (!isSpreadId(body.spread)) {
     return Response.json({ error: "Escolha uma tiragem válida." }, { status: 422 });
+  }
+
+  // A carta do dia não tem pergunta.
+  const question = body.spread === "carta-do-dia" ? "" : sanitizeQuestion(body.question);
+
+  // Segurança primeiro: sofrimento grave ou risco à vida => acolhimento + CVV, SEM sortear e SEM guardar a pergunta.
+  if (question && detectCrisis(question)) {
+    return Response.json({ crisis: true, message: CRISIS_MESSAGE });
   }
 
   try {
@@ -27,7 +38,10 @@ export async function POST(request: Request) {
       if (existing) return Response.json({ id: existing.id, repeated: true });
     }
 
-    const id = await createReading(body.spread, null, visitorId);
+    const verdict = await hit("draw", clientKey(request), LIMITS.drawTarot());
+    if (!verdict.allowed) return Response.json({ error: BUSY_MESSAGE }, { status: 429 });
+
+    const id = await createReading(body.spread, question || null, visitorId);
 
     if (body.spread === "carta-do-dia") {
       (await cookies()).set(DAILY_COOKIE, `${todayInBrazil()}:${id}`, {

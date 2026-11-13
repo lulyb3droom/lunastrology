@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { AiInterpretation } from "@/components/ai/AiInterpretation";
 import { Glass } from "@/components/Glass";
 import { TarotCardButton } from "./TarotCardButton";
 
@@ -21,6 +22,10 @@ interface Props {
   spreadId: string;
   spreadName: string;
   cards: BoardCard[];
+  /** rota que gera a interpretação por IA */
+  interpretEndpoint: string;
+  /** interpretação já salva (se houver) */
+  initialInterpretation: string | null;
 }
 
 // Cruz Celta: [coluna, linha] de cada posição (0 = 1ª carta). A carta 2 (índice 1) cruza a 1.
@@ -29,7 +34,7 @@ const CELTIC: [number, number][] = [
   [5, 4], [5, 3], [5, 2], [5, 1],
 ];
 
-export function ReadingBoard({ spreadId, spreadName, cards }: Props) {
+export function ReadingBoard({ spreadId, spreadName, cards, interpretEndpoint, initialInterpretation }: Props) {
   const [flipped, setFlipped] = useState<Set<number>>(new Set());
   const toggle = (i: number) =>
     setFlipped((cur) => {
@@ -122,6 +127,15 @@ export function ReadingBoard({ spreadId, spreadName, cards }: Props) {
           Fazer outra tiragem
         </Link>
       </div>
+
+      <AiInterpretation
+        endpoint={interpretEndpoint}
+        initialText={initialInterpretation}
+        title="Interpretação"
+        startLabel="Interpretar com IA"
+        disabled={!allFlipped}
+        disabledHint="Vire todas as cartas para pedir a interpretação."
+      />
 
       {/* Significados das cartas já viradas */}
       <section aria-live="polite" className="space-y-4">

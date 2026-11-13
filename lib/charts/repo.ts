@@ -17,6 +17,7 @@ export interface StoredChart {
   houseSystem: HouseSystem;
   result: ChartResult;
   calcVersion: string;
+  interpretation: string | null;
   createdAt: Date;
 }
 
@@ -74,6 +75,15 @@ export async function getChartForVisitor(id: string): Promise<StoredChart | null
     houseSystem: r.houseSystem as HouseSystem,
     result: r.result as ChartResult,
     calcVersion: r.calcVersion,
+    interpretation: r.interpretation,
     createdAt: r.createdAt,
   };
+}
+
+/** Guarda a interpretação do mapa (gerada uma vez; depois é reaproveitada). */
+export async function saveChartInterpretation(id: string, text: string, model: string): Promise<void> {
+  await getDb()
+    .update(schema.birthCharts)
+    .set({ interpretation: text, interpretationModel: model })
+    .where(eq(schema.birthCharts.id, id));
 }

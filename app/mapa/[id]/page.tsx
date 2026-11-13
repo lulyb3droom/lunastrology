@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CALC_VERSION, calculateChart, type HouseSystem } from "@/lib/astro";
 import { ChartView } from "@/components/chart/ChartView";
+import { AiInterpretation } from "@/components/ai/AiInterpretation";
 import { Glass } from "@/components/Glass";
 import { HOUSE_SYSTEMS, HOUSE_SYSTEM_LABELS } from "@/lib/charts/house-systems";
 import { getChartForVisitor } from "@/lib/charts/repo";
@@ -127,6 +128,14 @@ export default async function MapaResultado({
           })}
         </nav>
       )}
+
+      <AiInterpretation
+        endpoint={`/api/mapa/${stored.id}/interpretar`}
+        initialText={stored.interpretation}
+        title="Interpretação do mapa"
+        startLabel="Interpretar meu mapa com IA"
+        note={`Baseada no mapa original (${HOUSE_SYSTEM_LABELS[stored.houseSystem]}${stored.timeUnknown ? ", sem hora de nascimento" : ""}).`}
+      />
 
       <ChartView chart={chart} />
 
