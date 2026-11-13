@@ -15,7 +15,8 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     kind: "mapa",
     stored: chart.interpretation,
     buildMessages: () => buildChartMessages(chart.result),
-    maxTokens: 3000,
+    // ~650 palavras pedidas; 2200 tokens é folga para o português e limita o tempo (a Vercel corta em 60 s)
+    maxTokens: 2200,
     save: (r) => saveChartInterpretation(chart.id, r.text, r.model),
   });
 }

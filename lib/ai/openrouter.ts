@@ -40,6 +40,18 @@ export function configuredModels(env = process.env): string[] {
   return list.filter((m, i) => list.indexOf(m) === i);
 }
 
+/**
+ * Raciocínio dos modelos que "pensam" antes de responder. Desligado por padrão: medimos o primeiro texto
+ * em ~0,6 s (desligado) contra ~1,3 s ("low") em prompts curtos, e bem mais em prompts longos.
+ * Para ligar: OPENROUTER_REASONING=low (ou medium/high).
+ */
+export function reasoningParam(env = process.env): Record<string, unknown> {
+  const v = (env.OPENROUTER_REASONING ?? "off").trim().toLowerCase();
+  return v === "low" || v === "medium" || v === "high"
+    ? { reasoning: { effort: v, exclude: true } }
+    : { reasoning: { enabled: false } };
+}
+
 interface Chunk {
   error?: { code?: number | string; message?: string };
   choices?: { delta?: { content?: string | null }; finish_reason?: string | null }[];
@@ -95,8 +107,8 @@ export async function* streamCompletion(opts: StreamOptions): AsyncGenerator<AiE
           stream: true,
           max_tokens: opts.maxTokens,
           temperature: 0.8,
-          // Modelos de raciocínio: pouco "pensar" e sem devolver o raciocínio (atrasa e gasta tokens)
-          reasoning: { effort: "low", exclude: true },
+          // Modelos de raciocínio: por padrão desligado (mais rápido); ver reasoningParam()
+          ...reasoningParam(),
           usage: { include: true },
         }),
         signal,

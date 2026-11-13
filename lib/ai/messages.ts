@@ -10,8 +10,8 @@ import {
 import { getSpread, type SpreadId } from "@/lib/tarot/spreads";
 import type { DrawnCard } from "@/lib/tarot/draw";
 import type { ChatMessage } from "./openrouter";
-import { MAPA_SYSTEM_PROMPT } from "./prompts/mapa.v1";
-import { TAROLOGO_SYSTEM_PROMPT } from "./prompts/tarologo.v1";
+import { MAPA_SYSTEM_PROMPT } from "./prompts/mapa.v2";
+import { TAROLOGO_SYSTEM_PROMPT } from "./prompts/tarologo.v2";
 
 export const QUESTION_MAX = 300;
 

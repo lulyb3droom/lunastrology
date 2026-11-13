@@ -48,7 +48,7 @@ Cada tarefa tem critério de "pronto" (✔).
 - **T4.4** ✅ Rate limit em Postgres + registro em `ai_usage`. Aplicar também a `POST /api/mapa` e `GET /api/geocode` (hoje sem limite por IP; o geocode só tem cache e pausa de 1 s por instância). ✔ 4ª tiragem do visitante no dia é bloqueada.
 - **T4.5** ✅ Interpretação do tarot em streaming na tela. ✔ começa em ~3 s.
 - **T4.6** ✅ Interpretação do mapa (uma vez, salva). ✔ segunda visita não chama a IA.
-- **T4.7** Comparar `nemotron-3-ultra-550b-a55b:free` (principal) x `gemma-4-31b-it:free` (reserva) em 5 casos, medindo tempo até o primeiro texto e respeito às regras de segurança, e confirmar a escolha. ✔ decisão sua.
+- **T4.7** ✅ (resultado: Nemotron 3 Ultra com raciocínio DESLIGADO, 1º texto em 0,8-2,2 s; Gemma 4 estava com limite upstream da Google, reserva a definir) Comparar `nemotron-3-ultra-550b-a55b:free` (principal) x `gemma-4-31b-it:free` (reserva) em 5 casos, medindo tempo até o primeiro texto e respeito às regras de segurança, e confirmar a escolha. ✔ decisão sua.
 
 ## Fase 5 — Contas e LGPD
 - **T5.1** *(você)* Criar credenciais Google OAuth (passo a passo meu). ✔

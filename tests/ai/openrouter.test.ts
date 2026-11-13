@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { AiError } from "@/lib/ai/errors";
-import { configuredModels, streamCompletion, type AiEvent } from "@/lib/ai/openrouter";
+import { configuredModels, reasoningParam, streamCompletion, type AiEvent } from "@/lib/ai/openrouter";
 import { sseEvents } from "@/lib/ai/sse";
 
 const enc = new TextEncoder();
@@ -88,14 +88,14 @@ describe("streamCompletion", () => {
     expect(calls).toHaveLength(1);
   });
 
-  it("envia os cabeçalhos de identificação e os parâmetros pedidos (streaming, max_tokens, raciocínio baixo)", async () => {
+  it("envia os cabeçalhos de identificação e os parâmetros pedidos (streaming, max_tokens, raciocínio desligado)", async () => {
     const { f, calls } = fakeFetch([sseResponse([content("x"), "data: [DONE]\n\n"])]);
     await collect(streamCompletion({ ...base, fetchImpl: f }));
     const c = calls[0]!;
     expect(c.headers["Authorization"]).toBe("Bearer chave-de-teste");
     expect(c.headers["X-Title"]).toBe("Lunastrology");
     expect(c.headers["HTTP-Referer"]).toMatch(/^https?:\/\//);
-    expect(c.body).toMatchObject({ stream: true, max_tokens: 100, reasoning: { effort: "low", exclude: true } });
+    expect(c.body).toMatchObject({ stream: true, max_tokens: 100, reasoning: { enabled: false } });
   });
 
   it.each([
@@ -189,6 +189,16 @@ describe("streamCompletion", () => {
     ]);
     await expect(collect(streamCompletion({ ...base, fetchImpl: f, signal: ctrl.signal }))).rejects.toBeDefined();
     expect(calls).toHaveLength(1);
+  });
+});
+
+describe("raciocínio dos modelos", () => {
+  it("fica desligado por padrão e pode ser ligado por variável de ambiente", () => {
+    expect(reasoningParam({} as never)).toEqual({ reasoning: { enabled: false } });
+    expect(reasoningParam({ OPENROUTER_REASONING: "off" } as never)).toEqual({ reasoning: { enabled: false } });
+    expect(reasoningParam({ OPENROUTER_REASONING: "low" } as never)).toEqual({ reasoning: { effort: "low", exclude: true } });
+    expect(reasoningParam({ OPENROUTER_REASONING: "HIGH" } as never)).toEqual({ reasoning: { effort: "high", exclude: true } });
+    expect(reasoningParam({ OPENROUTER_REASONING: "lixo" } as never)).toEqual({ reasoning: { enabled: false } });
   });
 });
 

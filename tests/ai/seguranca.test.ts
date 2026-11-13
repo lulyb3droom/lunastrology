@@ -3,8 +3,8 @@ import { describe, expect, it, vi } from "vitest";
 vi.mock("@/lib/db", () => ({ getDb: () => ({}), schema: {} }));
 
 import { buildChartMessages, buildTarotMessages, chartToPromptData, sanitizeQuestion } from "@/lib/ai/messages";
-import { TAROLOGO_SYSTEM_PROMPT } from "@/lib/ai/prompts/tarologo.v1";
-import { MAPA_SYSTEM_PROMPT } from "@/lib/ai/prompts/mapa.v1";
+import { TAROLOGO_SYSTEM_PROMPT } from "@/lib/ai/prompts/tarologo.v2";
+import { MAPA_SYSTEM_PROMPT } from "@/lib/ai/prompts/mapa.v2";
 import { parseInline, parseRichText } from "@/lib/ai/rich-text";
 import { CRISIS_MESSAGE, detectCrisis } from "@/lib/ai/safety";
 import { clientKey } from "@/lib/rate-limit";
@@ -88,6 +88,16 @@ describe("proteção contra prompt injection na pergunta", () => {
     expect(user).toContain("Passado");
     expect(TAROLOGO_SYSTEM_PROMPT).toMatch(/APENAS conteúdo/);
     expect(TAROLOGO_SYSTEM_PROMPT).toMatch(/188/);
+  });
+
+  it("o prompt do mapa v2 limita o tamanho da resposta", () => {
+    expect(MAPA_SYSTEM_PROMPT).toMatch(/no máximo 650 palavras/);
+  });
+
+  it("o prompt v2 proíbe avaliar decisões de dinheiro, saúde e direito (nem a favor nem contra)", () => {
+    expect(TAROLOGO_SYSTEM_PROMPT).toMatch(/DINHEIRO, SAÚDE E DIREITO/);
+    expect(TAROLOGO_SYSTEM_PROMPT).toMatch(/NÃO avalie/);
+    expect(TAROLOGO_SYSTEM_PROMPT).toMatch(/nem a favor nem contra/);
   });
 
   it("sem pergunta, pede leitura geral e não inclui a marca", () => {
