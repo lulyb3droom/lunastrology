@@ -59,7 +59,9 @@ export const tarotReadings = pgTable(
     userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }),
     spread: text("spread").notNull(),
     question: text("question"),
-    cards: jsonb("cards").notNull(), // [{ carta, posicao, invertida }]
+    cards: jsonb("cards").notNull(), // [{ cardId, position, reversed }]
+    // Visitante sem login: hash (SHA-256) do identificador guardado no cookie do navegador.
+    visitorHash: text("visitor_hash"),
     interpretation: text("interpretation"),
     model: text("model"),
     tokensIn: integer("tokens_in"),
@@ -67,7 +69,10 @@ export const tarotReadings = pgTable(
     costUsd: numeric("cost_usd", { precision: 12, scale: 6 }),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
-  (t) => [index("tarot_readings_user_idx").on(t.userId)],
+  (t) => [
+    index("tarot_readings_user_idx").on(t.userId),
+    index("tarot_readings_visitor_idx").on(t.visitorHash),
+  ],
 );
 
 export const geocodeCache = pgTable("geocode_cache", {

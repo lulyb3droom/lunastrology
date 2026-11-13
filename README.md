@@ -54,4 +54,4 @@ Astrologia e tarot são oferecidos para entretenimento e autoconhecimento.
 
 ## Créditos
 
-As imagens do tarot (quando adicionadas) são do baralho Rider-Waite-Smith de 1909, em domínio público (Wikimedia Commons). Detalhes em `CREDITOS.md`.
+As imagens do tarot são do baralho Rider-Waite-Smith de 1909, em domínio público (Wikimedia Commons). Detalhes em [`CREDITOS.md`](CREDITOS.md).

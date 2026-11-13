@@ -15,6 +15,13 @@
       "when": 1794386842283,
       "tag": "0001_hesitant_misty_knight",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794577207469,
+      "tag": "0002_smart_susan_delgado",
+      "breakpoints": true
     }
   ]
 }

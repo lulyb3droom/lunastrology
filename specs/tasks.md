@@ -35,11 +35,11 @@ Cada tarefa tem critério de "pronto" (✔).
 - **T2.5** ✅ Salvar mapa no banco (visitante: UUID; limpeza em 30 dias). ✔ recarregar a URL mostra o mesmo mapa.
 
 ## Fase 3 — Tarot (sem IA ainda)
-- **T3.1** `data/tarot/cartas.ts`: 78 cartas com significado direito/invertido em PT-BR. ✔ 78 itens validados por teste.
-- **T3.2** Imagens: mover de `tmp-tarot-staging/` para `public/tarot/`, nomes padronizados, conferir carta a carta, `CREDITOS.md`. ✔ 78 imagens corretas.
-- **T3.3** Sorteio no servidor (`crypto`, Fisher–Yates, invertida configurável) + tiragens. ✔ testes de distribuição e de unicidade.
-- **T3.4** Telas: escolha da tiragem → pergunta → animação de embaralhar/virar → cartas. ✔ sem blur durante a animação; respeita `prefers-reduced-motion`.
-- **T3.5** Carta do dia na Home. ✔
+- **T3.1** ✅ `data/tarot/cartas.ts`: 78 cartas com significado direito/invertido em PT-BR. ✔ 78 itens validados por teste.
+- **T3.2** ✅ Imagens: mover de `tmp-tarot-staging/` para `public/tarot/`, nomes padronizados, conferir carta a carta, `CREDITOS.md`. ✔ 78 imagens corretas.
+- **T3.3** ✅ Sorteio no servidor (`crypto`, Fisher–Yates, invertida configurável) + tiragens. ✔ testes de distribuição e de unicidade.
+- **T3.4** ✅ Telas: escolha da tiragem → (pergunta: entra na Fase 4, junto com o filtro de segurança) → animação de embaralhar/virar → cartas. ✔ sem blur durante a animação; respeita `prefers-reduced-motion`.
+- **T3.5** ✅ Carta do dia na Home. ✔
 
 ## Fase 4 — IA (OpenRouter)
 - **T4.1** Cliente OpenRouter (streaming, cabeçalhos, `max_tokens`, timeout, reserva). ✔ simulado em teste; erro de crédito/modelo vira mensagem amigável.

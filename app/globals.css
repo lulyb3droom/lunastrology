@@ -173,3 +173,115 @@ body {
   outline: 2px solid var(--color-neon-nebula);
   outline-offset: 3px;
 }
+
+/* ---------- Tarot: verso das cartas, virar e animações (SEM blur) ---------- */
+.tarot-back {
+  position: relative;
+  border-radius: 0.5rem;
+  border: 2px solid color-mix(in srgb, var(--color-white-cosmic) 45%, transparent);
+  background-color: var(--color-bg-cosmic);
+  /* losangos em violet-astral sobre bg-cosmic */
+  background-image:
+    linear-gradient(45deg, color-mix(in srgb, var(--color-violet-astral) 70%, transparent) 25%, transparent 25%, transparent 75%, color-mix(in srgb, var(--color-violet-astral) 70%, transparent) 75%),
+    linear-gradient(-45deg, color-mix(in srgb, var(--color-violet-astral) 70%, transparent) 25%, transparent 25%, transparent 75%, color-mix(in srgb, var(--color-violet-astral) 70%, transparent) 75%);
+  background-size: 18px 18px;
+  box-shadow: inset 0 0 0 5px var(--color-bg-deep), inset 0 0 0 6px color-mix(in srgb, var(--color-white-cosmic) 40%, transparent);
+}
+.tarot-back::after {
+  content: "☾";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: clamp(1.2rem, 4vw, 2.2rem);
+  color: var(--color-text-main);
+  text-shadow: 0 0 6px var(--color-bg-deep), 0 0 2px var(--color-bg-deep);
+}
+
+.tarot-flip {
+  perspective: 900px;
+}
+.tarot-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0.1, 0.2, 1);
+}
+.tarot-flip[data-flipped="true"] .tarot-flip-inner {
+  transform: rotateY(180deg);
+}
+.tarot-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.tarot-face-front {
+  transform: rotateY(180deg);
+}
+.tarot-flip:hover .tarot-back,
+.tarot-flip:focus-visible .tarot-back,
+.tarot-flip[data-flipped="true"] .tarot-face-front {
+  box-shadow:
+    inset 0 0 0 5px var(--color-bg-deep),
+    inset 0 0 0 6px color-mix(in srgb, var(--color-white-cosmic) 40%, transparent),
+    0 0 16px color-mix(in srgb, var(--color-neon-nebula) 75%, transparent);
+}
+.tarot-flip[data-flipped="true"] .tarot-face-front {
+  box-shadow: 0 0 16px color-mix(in srgb, var(--color-neon-nebula) 75%, transparent);
+}
+
+.tarot-deal {
+  animation: tarot-deal 0.55s ease-out both;
+  animation-delay: calc(1.7s + var(--i, 0) * 0.14s);
+}
+@keyframes tarot-deal {
+  from {
+    opacity: 0;
+    transform: translateY(-24px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.tarot-shuffle {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  animation: tarot-shuffle-out 0.35s ease-in 1.55s forwards;
+}
+.tarot-shuffle > span {
+  position: absolute;
+  animation: tarot-shuffle 1.5s ease-in-out both;
+  animation-delay: calc(var(--k) * 0.08s);
+}
+@keyframes tarot-shuffle {
+  0% { transform: translateX(0) rotate(0); }
+  25% { transform: translateX(-70px) rotate(-9deg); }
+  50% { transform: translateX(70px) rotate(9deg); }
+  75% { transform: translateX(-35px) rotate(-4deg); }
+  100% { transform: translateX(0) rotate(0); }
+}
+@keyframes tarot-shuffle-out {
+  to { opacity: 0; visibility: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tarot-flip-inner {
+    transition: none;
+  }
+  .tarot-deal {
+    animation: none;
+  }
+  .tarot-shuffle {
+    display: none;
+  }
+}
